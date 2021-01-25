@@ -1,0 +1,9 @@
+JAVASCRIPT AVANZADO REACT
+
+*** Template Literals: Nos permite trabajar con string de una manera más dinámica.
+
+* Backticks (``): Dentro puedes escribir texto natural tal cual quieres que se muestre, por ejemplo, puedes escribir un salto de línea sin escapar la letra n (\n) sino dando enter, o mostrar contenido de expresiones sin concatenar con el signo más (+) sino usando ${expresion}.
+
+* Tagged Template: para personalizar a gusto propio una expresión
+
+* Styled Components: Usa los Tagged Templates para generar estilos

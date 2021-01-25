@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Literals - Espresiones</title>
+</head>
+<body>
+    <script>
+        const variable = 'Hola';
+        console.log(`Imprimir el contenido de una variable: ${variable}.`);
+        console.log(`Imprimir números directamente ${36}.`);
+        console.log(`Imprimir strings ${'Hola mundo'}.`);
+        console.log(`Asignar variables y devuelve el resultado ${x = 'Internet'}.`);
+        console.log(`Ejecutar funciones, pero para ejecutarla inmediatamente se encierra en () y se le agrega () después: ${(function nombre() { return 'Jesús'})()}.`);
+        console.log(`Ejecutar funciones anónimas, pero para ejecutarla inmediatamente se encierra en () y se le agrega () después: ${(function () { return 'Vivero'})()}.`);
+        console.log(`Ejecutar funciones flecha, pero para ejecutarla inmediatamente se encierra en () y se le agrega () después: ${(() => { return 'Salcedo'})()}.`);
+        console.log(`Se pueden usar ternarios: ${true && 'Esto es verdadero'}.`);
+        console.log(`Se pueden usar ternarios: ${false ? 'Esto es verdadero' : 'Esto es falso'}.`);
+        console.log(`Se puede usar template literals dentro de otro template literal: ${['a', 'b'].map(letra => `${letra}-styled`)}.`);
+    </script>
+</body>
+</html>

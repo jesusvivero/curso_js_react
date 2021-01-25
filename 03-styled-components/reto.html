@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Components (Reto)</title>
+</head>
+<body>
+    <div id="header"></div> <!--Cuando se crea un elemento automáticamente se agrega al window-->
+    <div id="container"></div> <!--Cuando se crea un elemento automáticamente se agrega al window-->
+    <script>
+        function component(strings, ...dynamicValues) {
+            return function(props) {
+                let newContent = strings.slice(); // sin parámetros realiza una copia identica del array.
+                console.log(newContent);
+                dynamicValues.forEach((value, index) => {
+                    newContent[index] += props[value]; // por esta razon tiene el mismo nombre 'message' en el objeto props y en el template literal, para que se pudiera hacer este merge, si se llamaran diferentes esta técnica no funcionaría así
+                })
+                return newContent.join(''); // Une todos los elementos de una array en un solo string
+            }
+            
+        }
+
+        props = {
+            message: 'No te rindas',
+            name: 'Jesus'
+        }
+
+        // Un objeto de estilos
+        const styled = {
+            setStyle: function(styles) {
+                return function(content, label) {
+                    return `
+                        <${label} style="${styles}">
+                            ${content}
+                        </${label}>
+                    `
+                }                
+            }
+        }
+
+        // Creamos el style component (La upper case al inicio es simplemente para reconocer que es un style component)
+        const TitlesStyles = styled.setStyle`
+            font-family: system-ui;
+            color: orange;
+            font-size: 50px;
+            text-shadow: 2px 2px 0 black;
+        `;
+
+        const ParagraphStyles = styled.setStyle`
+            font-family: system-ui;
+            color: black;
+            font-size: 15px;
+        `;
+
+        // en el template literal mandamos 'message' y llamamos por el mismo nombre la propiedad dentro de props, para poder hacer match dentro de la función que retorna "component"
+        const title = 'Uso de Styled Component';
+        const paragraph = component`Te quiero decir que ${'message'} y sigue luchando ${'name'}`(props); // se llama nuestro componente tagged template y se le envían propiedades, se retorna función para poder enviarle propiedades a la funcion retornada
+        // la etiqueta marquee está en deshuso, pero solo se usó para ejemplo práctico de la clase, jajajaja
+        function render(component, container) {
+            container.innerHTML = component;
+        }
+
+        render(TitlesStyles(title, 'div'), window.header); // window.container hace referencia al elemento con el id container dentro del window
+        render(ParagraphStyles(paragraph, 'p'), window.container); // window.container hace referencia al elemento con el id container dentro del window
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Components</title>
+</head>
+<body>
+    <div id="container"></div> <!--Cuando se crea un elemento automáticamente se agrega al window-->
+    <script>
+        function component(strings, ...dynamicValues) {
+            return function(props) {
+                let newContent = strings.slice(); // sin parámetros realiza una copia identica del array.
+                console.log(newContent);
+                dynamicValues.forEach((value, index) => {
+                    newContent[index] += props[value]; // por esta razon tiene el mismo nombre 'message' en el objeto props y en el template literal, para que se pudiera hacer este merge, si se llamaran diferentes esta técnica no funcionaría así
+                })
+                return newContent.join(''); // Une todos los elementos de una array en un solo string
+            }
+            
+        }
+
+        props = {
+            message: 'No te rindas'
+        }
+
+        // Un objeto de estilos
+        const styled = {
+            h1: function(styles) {
+                return function(content) {
+                    return `
+                        <h1 style="${styles}">
+                            ${content}
+                        </h1>
+                    `
+                }                
+            },
+            h2: '',
+            div: '',
+        }
+
+        // Creamos el style component (La upper case al inicio es simplemente para reconocer que es un style component)
+        const TitlesStyles = styled.h1`
+            font-family: system-ui;
+            color: orange;
+            font-size: 50px;
+            text-shadow: 2px 2px 0 black;
+            line-height: 100vh;
+        `;
+
+        // en el template literal mandamos 'message' y llamamos por el mismo nombre la propiedad dentro de props, para poder hacer match dentro de la función que retorna "component"
+        const Title = component`<div> ${'message'} </div>`(props); // se llama nuestro componente tagged template y se le envían propiedades, se retorna función para poder enviarle propiedades a la funcion retornada
+        // la etiqueta marquee está en deshuso, pero solo se usó para ejemplo práctico de la clase, jajajaja
+        function render(component, container) {
+            container.innerHTML = component;
+        }
+
+        render(TitlesStyles(Title), window.container); // window.container hace referencia al elemento con el id container dentro del window
+
+    </script>
+</body>
+</html>

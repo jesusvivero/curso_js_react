@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tagged Templates</title>
+</head>
+<body>
+    <!--<p>El trabajo duro supera al talento natural</p>-->
+    <script>
+        function miTaggedTemplate(strings, ...dynamicValues) {  // El segundo argumento es un Rest Operator (Ver los tres puntos) que indica que el segundo argumento va a recibir cualquier cantidad de parámetros y los va a almacenar en un array
+            //console.log(strings, dymanicValues);
+            let newContent = '';
+            strings.forEach((element, index) => {
+                const strong = dynamicValues[index] ? `<strong>${dynamicValues[index]}</strong>` : '';
+                newContent += `${element} ${strong}`;
+            });
+            return `<p>${newContent}</p>`;
+        }
+		// el tagged template recibe un array de los partes de la cadena separadas por los ${}
+        const message = miTaggedTemplate`El ${'trabajo duro'} supera al ${'talento natural'}`; //A la funcion se le envía como parametro un template literal
+        document.body.innerHTML = message;
+    </script>
+</body>
+</html>
