@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShortHand Property Names</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <main>
+    <h1>
+      La mejor. <br>
+      Para los mejores
+    </h1>
+    <div class="hero">
+      <div class="wrapper">
+        <div class="hero-content">
+          <div class="mac"></div>
+          <div class="app">
+            <p>
+              <strong>
+                Precio:
+              </strong>
+              <span id="price">-</span>
+            </p>
+            <p>
+              <strong>
+                Precio oferta:
+              </strong>
+              <span id="offer">-</span>
+            </p>
+            <p>
+              <strong>
+                Precio Final:
+              </strong>
+              <span id="final-price">-</span>
+            </p>
+            <button class="button" id="make-offer">Regatear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const price = 2700;
+    const macbook = {
+      price, // shorthand property name
+      // getPrice: function() {
+
+      // },
+      get finalPrice() { // al anteponer la palabra get delante de una funcion del objeto, lo convertimos en un getter para retornar valores del objeto.
+        return this.price * 1.16;
+      },
+      set offer(offer) { // al anteponer la palabra set delante de una funcion del objeto, lo convertimos en un setter para asignar valores del objeto.
+        this.price -= offer;
+      },
+      getPrice() {
+        console.log(this.price);
+      },
+      *discount(offer) { // esto es una funcion generadora (* antes del nombre)
+        let price = this.finalPrice;
+        while (true) { // este loop infinito es valido para generadores ya que yield retorna y termina la ejecución, esto se usa para que podamos generar de forma infinita
+          yield price -= offer; // yield se usa para retornar valores en una funcion generadora,
+        }
+      } // la funcion generadora retornara las veces que tenga un yield, al hacer el bucle infinito podemos retonar yield de forma infinita
+    };
+
+    window.price.textContent = macbook.price; // asigna un valor al objeto con id price
+    macbook.offer = 500; // recordemos que offer es un setter por eso esto no se trata como una modificación de la propiedad sino como un seteo
+    window.offer.textContent = macbook.price; // asigna un valor al objeto con id offer
+    window['final-price'].textContent = macbook.finalPrice; // asigna un valor al objeto con id final-price, se encierra en corchete y comillas debido a que el id tiene un guion en el identificador
+
+    const makeAnOffer = macbook.discount(15); //Se asigna el generador, pero esto no se ejecuta, simplemente se instancia
+    
+    // Se le agrega un evento al botón con id "make-offer" en el DOM
+    window['make-offer'].addEventListener('click', () => {
+      window['final-price'].textContent = makeAnOffer.next().value // Un generador se ejecuta con el método next() y el valor se obtiene con value
+    });
+  </script>
+</body>
+
+</html>

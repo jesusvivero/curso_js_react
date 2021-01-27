@@ -7,3 +7,31 @@ JAVASCRIPT AVANZADO REACT
 * Tagged Template: para personalizar a gusto propio una expresión
 
 * Styled Components: Usa los Tagged Templates para generar estilos
+
+*** Shorthand property name: Cuando al crear un objeto el nombre de sus propiedades es igual al nombre de las variables que se le están pasando en la asignación, por ejemplo
+
+- Este ejemplo:
+
+const name = 'jesus';
+const age  = 36;
+
+const user = {
+  name: name,
+  age: age
+};
+
+Es igual a este:
+
+const name = 'jesus';
+const age  = 36;
+
+const user = {
+  name,
+  age
+};
+
+
+
+*** Funciones
+
+* Hoisting (Elevamiento): SI una funcion (Solo funciona para las funciones con nombre) se invoca unas lineas antes de ser declarada el Hoisting internamente las pone arriba para que el programa funcione (Esta práctica no es recomendada)
